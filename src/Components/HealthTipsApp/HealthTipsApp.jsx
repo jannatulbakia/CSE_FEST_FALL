@@ -43,11 +43,13 @@ const HealthTipsApp = () => {
     );
 
   const getIcon = (icon) =>
-    ({ droplet: Droplet, thermometer: Thermometer, sun: Sun, calendar: Calendar }[icon] ||
-    Calendar);
+    ({ droplet: Droplet, thermometer: Thermometer, sun: Sun, calendar: Calendar }[icon] || Calendar);
 
-  const SeasonIcon = getIcon(selectedSeason?.icon);
   const activeColor = selectedSeason?.color || "#0EA5E9";
+
+  const tipsToShow = showYearRound
+    ? healthData.yearRound.tips
+    : selectedSeason?.tips || [];
 
   return (
     <div
@@ -65,7 +67,7 @@ const HealthTipsApp = () => {
           মৌসুমি স্বাস্থ্য পরামর্শ
         </h1>
         <p className="text-gray-600 mt-2 text-lg">
-          {selectedSeason?.nameEn} Season Health Advisory – Stay Safe 💚
+          {showYearRound ? "Year-Round Health Advisory" : `${selectedSeason?.nameEn} Season Health Advisory`} – Stay Safe 💚
         </p>
       </header>
 
@@ -73,14 +75,11 @@ const HealthTipsApp = () => {
       <div className="flex justify-center gap-3 flex-wrap mb-8">
         {healthData?.seasons.map((season) => {
           const Icon = getIcon(season.icon);
-          const isActive = selectedSeason.id === season.id && !showYearRound;
+          const isActive = selectedSeason?.id === season.id && !showYearRound;
           return (
             <button
               key={season.id}
-              onClick={() => {
-                setSelectedSeason(season);
-                setShowYearRound(false);
-              }}
+              onClick={() => { setSelectedSeason(season); setShowYearRound(false); }}
               className={`px-5 py-3 rounded-xl font-medium flex items-center gap-2 border backdrop-blur-sm transition-all ${
                 isActive
                   ? "text-white shadow-lg scale-105"
@@ -112,73 +111,55 @@ const HealthTipsApp = () => {
 
       {/* Tips Section */}
       <main className="max-w-6xl mx-auto px-4 space-y-6 pb-12">
-        {(showYearRound ? healthData.yearRound.tips : selectedSeason.tips).map(
-          (tip) => (
-            <div
-              key={tip.id}
-              className="bg-white/70 backdrop-blur-md rounded-2xl shadow-md hover:shadow-xl border transition-all"
-              style={{
-                borderLeft: `6px solid ${
-                  tip.urgent ? "#EF4444" : activeColor
-                }`,
-              }}
+        {tipsToShow.map((tip) => (
+          <div
+            key={tip.id}
+            className="bg-white/80 backdrop-blur-md rounded-2xl shadow hover:shadow-xl border-l-8 transition-all"
+            style={{ borderColor: tip.urgent ? "#EF4444" : activeColor }}
+          >
+            <button
+              onClick={() => setExpandedTip(expandedTip === tip.id ? null : tip.id)}
+              className="w-full text-left p-5 flex justify-between items-center"
             >
-              <button
-                onClick={() =>
-                  setExpandedTip(expandedTip === tip.id ? null : tip.id)
-                }
-                className="w-full text-left p-5 flex justify-between items-center"
-              >
-                <div className="flex gap-3 items-start">
-                  {tip.urgent && (
-                    <AlertTriangle className="text-red-500 mt-1" size={20} />
-                  )}
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-800">
-                      {tip.title}
-                    </h3>
-                    <p className="text-sm text-gray-500">
-                      {tip.items.length} পরামর্শ
-                    </p>
-                  </div>
-                </div>
-                <svg
-                  className={`w-6 h-6 text-gray-500 transition-transform ${
-                    expandedTip === tip.id ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
-
-              <div
-                className={`overflow-hidden transition-all ${
-                  expandedTip === tip.id ? "max-h-[1000px]" : "max-h-0"
-                }`}
-              >
-                <div className="px-6 pb-4 space-y-3">
-                  {tip.items.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
-                    >
-                      <CheckCircle className="text-green-500 mt-1" size={18} />
-                      <span className="text-gray-700 text-sm">{item}</span>
-                    </div>
-                  ))}
+              <div className="flex gap-3 items-start">
+                {tip.urgent && <AlertTriangle className="text-red-500 mt-1" size={20} />}
+                <div>
+                  <h3 className="font-bold text-lg text-gray-800">{tip.title}</h3>
+                  <p className="text-sm text-gray-500">{tip.items.length} পরামর্শ</p>
                 </div>
               </div>
+              <svg
+                className={`w-6 h-6 text-gray-500 transition-transform duration-300 ${
+                  expandedTip === tip.id ? "rotate-180" : ""
+                }`}
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div
+              className={`overflow-hidden transition-all duration-500 ${
+                expandedTip === tip.id ? "max-h-[1000px]" : "max-h-0"
+              }`}
+            >
+              <div className="px-6 pb-4 space-y-3">
+                {tip.items.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+                  >
+                    <CheckCircle className="text-green-500 mt-1" size={18} />
+                    <span className="text-gray-700 text-sm">{item}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-          )
-        )}
+          </div>
+        ))}
 
         {/* Emergency Contacts */}
         <div className="bg-white/60 backdrop-blur-lg rounded-2xl p-6 shadow-lg border-t-4 border-red-400 mt-8">

@@ -55,16 +55,19 @@ const HealthCheckIn = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto p-6 bg-gradient-to-b from-blue-50 to-white shadow-xl rounded-2xl mt-8">
-            <h2 className="text-3xl font-bold text-center mb-4 text-blue-700">আজ কেমন লাগছে?</h2>
+        <div className="max-w-2xl mx-auto p-6 bg-gradient-to-b from-green-50 to-green-100 shadow-xl rounded-3xl mt-8">
+            <h2 className="text-3xl font-bold text-center mb-6 text-green-900">আজ কেমন লাগছে?</h2>
 
             <div className="flex flex-wrap justify-between gap-2 mb-4">
                 {['খুব খুশি', 'ভাল/ঠিক আছে', 'খানিকটা চিন্তিত', 'মন খারাপ লাগছে', 'খুব খারাপ'].map((item) => (
                     <button
                         key={item}
                         onClick={() => setMood(item)}
-                        className={`flex-1 px-3 py-2 rounded-xl border transition-colors duration-200 ${mood === item ? 'bg-blue-500 text-white border-blue-600' : 'bg-gray-100 hover:bg-gray-200'
-                            }`}
+                        className={`flex-1 px-3 py-2 rounded-2xl border transition-all duration-200 font-medium ${
+                            mood === item
+                                ? 'bg-green-600 text-white border-green-700'
+                                : 'bg-white hover:bg-green-50 border-green-200 text-green-800'
+                        }`}
                     >
                         {item}
                     </button>
@@ -72,39 +75,40 @@ const HealthCheckIn = () => {
             </div>
 
             <textarea
-                className="w-full border rounded-xl p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                className="w-full border border-green-200 rounded-2xl p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-green-300 bg-white text-green-900"
                 rows="3"
-                placeholder={editingId ? 'নোট সম্পাদনা করুন...' : 'আজকের দিনটি নিয়ে কিছু লিখতে চাও?'}
+                placeholder={editingId ? 'নোট সম্পাদনা করুন...' : 'আজকের দিনটি নিয়ে কিছু লিখুন...'}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
             ></textarea>
 
             <button
                 onClick={handleSave}
-                className={`w-full ${editingId ? 'bg-blue-500 hover:bg-blue-600' : 'bg-orange-500 hover:bg-orange-600'
-                    } text-white py-2 rounded-xl font-semibold transition-colors duration-200`}
+                className={`w-full py-2 rounded-2xl font-semibold text-white transition-colors duration-200 ${
+                    editingId ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'
+                }`}
             >
                 {editingId ? 'আপডেট করুন' : 'সংরক্ষণ করুন'}
             </button>
 
-            <h3 className="text-2xl font-semibold mt-8 mb-3 text-gray-800">📖 তোমার ভার্চুয়াল ডায়েরি</h3>
-            <div className="space-y-3 max-h-80 overflow-y-auto bg-white p-3 rounded-xl border">
-                {entries.length === 0 && <p className="text-gray-500 text-center">কোনো এন্ট্রি এখনো নেই</p>}
+            <h3 className="text-2xl font-semibold mt-8 mb-3 text-green-900">📖 তোমার ভার্চুয়াল ডায়েরি</h3>
+            <div className="space-y-3 max-h-80 overflow-y-auto bg-white p-4 rounded-2xl border border-green-200 shadow-sm">
+                {entries.length === 0 && <p className="text-green-500 text-center">কোনো এন্ট্রি এখনো নেই</p>}
                 {entries.map((entry) => (
-                    <div key={entry.id} className="p-4 border rounded-xl bg-blue-50 shadow-sm">
-                        <p className="text-sm text-gray-600">📅 {entry.date}</p>
-                        <p className="font-semibold text-blue-700">মুড: {entry.mood}</p>
-                        <p className="mt-1 text-gray-800">📝 {entry.note}</p>
+                    <div key={entry.id} className="p-4 border rounded-2xl bg-green-50 shadow-sm">
+                        <p className="text-sm text-green-600">📅 {entry.date}</p>
+                        <p className="font-semibold text-green-700">মুড: {entry.mood}</p>
+                        <p className="mt-1 text-green-800">📝 {entry.note}</p>
                         <div className="flex gap-3 mt-3">
                             <button
                                 onClick={() => handleEdit(entry)}
-                                className="px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm"
+                                className="px-3 py-1 bg-green-600 text-white rounded-xl hover:bg-green-700 text-sm"
                             >
                                 সম্পাদনা
                             </button>
                             <button
                                 onClick={() => handleDelete(entry.id)}
-                                className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm"
+                                className="px-3 py-1 bg-red-500 text-white rounded-xl hover:bg-red-600 text-sm"
                             >
                                 মুছে ফেলুন
                             </button>
@@ -113,9 +117,12 @@ const HealthCheckIn = () => {
                 ))}
             </div>
 
-            <h3 className="text-2xl font-semibold mt-8 mb-3 text-gray-800 ">📆 ক্যালেন্ডার</h3>
-
-            <Calendar onChange={setDate} value={date} className="rounded-3xl" />
+            <h3 className="text-2xl font-semibold mt-8 mb-3 text-green-900">📆 ক্যালেন্ডার</h3>
+            <Calendar
+                onChange={setDate}
+                value={date}
+                className="rounded-3xl border border-green-200 shadow-inner"
+            />
         </div>
     );
 };
