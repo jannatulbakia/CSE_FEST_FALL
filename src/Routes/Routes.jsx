@@ -9,6 +9,7 @@ import AnonymousHelp from "../Components/AnonymousHelp/AnonymousHelp";
 import CommunityMap from "../Components/CommunityMap/CommunityMap";
 import HealthTipsApp from "../Components/HealthTipsApp/HealthTipsApp";
 import Symptops from "../Components/Symptoms/Symptops";
+import AdminLayout from "../Layout/AdminLayout";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "/symptoms",
         element: <Symptops></Symptops>
+      },
+      {
+        path: "/admin",
+        element: <AdminLayout/>,
       },
     ],
   },

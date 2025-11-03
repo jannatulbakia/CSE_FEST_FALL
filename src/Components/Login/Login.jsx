@@ -48,7 +48,7 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-green-400 to-teal-400 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-linear-to-br from-emerald-400 via-green-400 to-teal-400 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid md:grid-cols-2 gap-8 items-center">
         <section className="hidden md:block text-white space-y-6 px-8">
           <div className="space-y-4">
@@ -118,7 +118,7 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-500 to-green-500 text-white font-semibold py-3 px-6 rounded-xl hover:shadow-lg hover:scale-105 transform transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full bg-linear-to-r from-emerald-500 to-green-500 text-white font-semibold py-3 px-6 rounded-xl hover:shadow-lg hover:scale-105 transform transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
