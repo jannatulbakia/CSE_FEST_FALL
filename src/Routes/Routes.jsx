@@ -5,6 +5,7 @@ import About from "../Components/About/About";
 import HealthCheckIn from "../Components/HealthCheckIn/HealthCheckIn";
 import Signup from "../Components/Signup/Signup";
 import Login from "../Components/Login/Login";
+import AnonymousHelp from "../Components/AnonymousHelp/AnonymousHelp";
 import CommunityMap from "../Components/CommunityMap/CommunityMap";
 
 export const router = createBrowserRouter([
@@ -21,12 +22,16 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "/anonymous-help",
+        element: <AnonymousHelp/>,
+      },
+      {
         path: "/mental-health-checkin",
         element: <HealthCheckIn/>,
       },
       {
         path: "/community-map",
-        element: <CommunityMap></CommunityMap>
+        element: <CommunityMap/>,
       },
       {
         path: "/signup",
@@ -36,7 +41,7 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login/>,
-      }
+      },
     ],
   },
 ]);
