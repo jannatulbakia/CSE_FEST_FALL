@@ -1,16 +1,94 @@
-# React + Vite
+# স্বাস্থ্যবন্ধু (ShasthoBondhu)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Tagline:** আপনার গ্রামের স্বাস্থ্য ও মানসিক সহায়তার বন্ধু।  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📝 Project Idea
 
-## React Compiler
+**স্বাস্থ্যবন্ধু (ShasthoBondhu)** একটি প্রগতিশীল ওয়েব অ্যাপ্লিকেশন যা বাংলাদেশের গ্রামীণ সম্প্রদায়ের মানুষদের জন্য ডিজাইন করা হয়েছে।  
+এটি মূলত নিম্নলিখিত লক্ষ্যগুলিকে সমর্থন করে:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- মানসিক স্বাস্থ্য সচেতনতা বৃদ্ধি ও নিরাময় সহায়তা।  
+- স্বাস্থ্যসেবা সংক্রান্ত তথ্য, ক্লিনিক, কমিউনিটি হেলথ ওয়ার্কার (CHW) ডিরেক্টরি এবং ইভেন্ট তথ্য সরবরাহ।  
+- গর্ভকালীন ও শিশু স্বাস্থ্য ট্র্যাকিং (ANC, EPI)।  
+- ঋতুভিত্তিক রোগ প্রতিরোধের টিপস (ডেঙ্গু, হাঁচি, জ্বর ইত্যাদি)।  
+- ভয়েস-ফার্স্ট ইন্টারফেসের মাধ্যমে কম লিটারেসি ব্যবহারকারীদের জন্য সহজ নেভিগেশন।  
+- ব্যক্তিগত তথ্য সুরক্ষা ও অ্যাগ্রিগেটেড ডেটা এক্সপোর্টের মাধ্যমে NGO/সরকারি সংস্থার সহায়তা।  
 
-## Expanding the ESLint configuration
+**Challenges Addressed:**  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. মানসিক স্বাস্থ্য সংক্রান্ত স্টিগমা ও সচেতনতা অভাব।  
+2. দূরবর্তী গ্রামীণ এলাকায় স্বাস্থ্যসেবা অ্যাক্সেস সীমাবদ্ধতা।  
+3. ডিজিটাল অপ্রস্তুতিমূলক পরিবেশ (2G, অফলাইন, কম্পিউটার ও মোবাইল স্কিল সীমিত)।  
+
+---
+
+
+## Features / Missions
+
+1. **Mental Health Check-In** – দৈনন্দিন মানসিক অবস্থা লগ ও ট্রেন্ড।  
+2. **Community Health Map** – নিকটস্থ ক্লিনিক/CHW/ফার্মেসি।  
+3. **Anonymous Help Request** – গোপন মানসিক স্বাস্থ্য সহায়তা।  
+4. **Seasonal Preventive Health Tips** – ঋতুভিত্তিক স্বাস্থ্য পরামর্শ।  
+5. **Maternal & Child Health Tracker** – ANC ও EPI ভ্যাকসিন রিমাইন্ডার।  
+6. **Symptom Awareness Guide** – ঝুঁকিপূর্ণ লক্ষণ ও করণীয়।  
+7. **Community Health Events** – হেলথ ক্যাম্প, ব্লাড ডোনেশন, ওয়ার্কশপ।  
+8. **Volunteer Health Worker Directory** – CHW/স্বেচ্ছাসেবক তথ্য।  
+9. **Health Data Export for NGOs** – অ্যাগ্রিগেটেড ও অ্যানোনিমাস ডেটা।  
+10. **Voice-First Health Assistant** – কম লিটারেসি ব্যবহারকারীর জন্য Bangla TTS/ASR।  
+
+---
+
+## API Specification
+ 
+- Endpoints:  
+
+| Module | Endpoint | Method | Description |
+|--------|----------|--------|------------|
+| HelpRequest | `/api/anonymous-request` | POST | Send anonymous help request |
+| Symptom awarness | `/api/symptom` | GET | Get awarness clinical information |
+| Community help map | `/api/facilities` | GET | community help map |
+| Seaonal preventing  | `/api/health-tips` | GET | seasonal preventing health tips |
+
+
+## 📬 Postman Collection Overview
+
+- Postman collection includes all endpoints for testing API.  
+- Contains environment variables for dev, staging, and production.  
+- Provides sample payloads and example responses.  
+
+**Key Collections:**  
+
+| Collection | Description |
+|------------|-------------|
+| Mood | Add, retrieve, and update mood check-ins |
+| Help Request | Create anonymous requests and check status |
+| Facility | Query facility info and distance info |
+| Maternal | Create and retrieve ANC/vaccine schedules |
+| Events | Fetch upcoming events |
+| CHW Directory | Search CHW by skill & location |
+| Export | Retrieve aggregated analytics |
+
+
+---
+
+## 🔧 Tech Stack
+
+- **Frontend:** React TailwindCSS
+- **Backend:** Node.js + Express 
+- **Database:** MongoDB
+
+---
+
+## 🔐 Privacy & Security
+
+- All personal data stays local by default.  
+- Anonymous help requests queued offline; optional contact info shared only with consent.  
+- Data export only aggregated; no individual identifiers.  
+- All storage encrypted using Web Crypto API.  
+
+---
+
+
+
