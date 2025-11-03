@@ -5,6 +5,7 @@ import About from "../Components/About/About";
 import HealthCheckIn from "../Components/HealthCheckIn/HealthCheckIn";
 import Signup from "../Components/Signup/Signup";
 import Login from "../Components/Login/Login";
+import CommunityMap from "../Components/CommunityMap/CommunityMap";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/mental-health-checkin",
         element: <HealthCheckIn/>,
+      },
+      {
+        path: "/community-map",
+        element: <CommunityMap></CommunityMap>
       },
       {
         path: "/signup",
