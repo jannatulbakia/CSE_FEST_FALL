@@ -17,6 +17,8 @@ import Volunteers from "../Components/Volunteers/Volunteers";
 import VolunteerManage from "../Components/Admin/VolunteerManage/VolunteerManage";
 import Activity from "../Components/Admin/Activity/Activity";
 import AdminHome from "../Components/Admin/AdminHome/AdminHome";
+import NGODetails from "../Components/Admin/AdminHome/NGODetails";
+
 
 export const router = createBrowserRouter([
   {
@@ -89,10 +91,13 @@ export const router = createBrowserRouter([
             element:<Activity/>,
           },
           {
-            path:"admin/home",
+            path:"/admin",
             element:<AdminHome/>,
           },
-
+          {
+            path:"/admin/ngo",
+            element:<NGODetails/>,
+          },
         ]
       },
     ],

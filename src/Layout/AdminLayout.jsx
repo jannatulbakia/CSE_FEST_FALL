@@ -45,7 +45,7 @@ const UserLayout = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to="/"
+                  to="/admin"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
                 >
@@ -129,7 +129,7 @@ const UserLayout = () => {
           <ul className="flex space-x-4 whitespace-nowrap">
             <li>
               <Link
-                to="/"
+                to="/admin"
                 className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
               >
                 <span className="mr-2">🏠</span>

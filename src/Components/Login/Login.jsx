@@ -23,24 +23,24 @@ function Login() {
         if (userSnap.exists()) {
           const userData = userSnap.data();
           if (userData.role === "user") {
-            toast.success("Welcome back!", { position: "top-center" });
+            toast.success("স্বাগতম ফিরে এসেছেন!", { position: "top-center" });
             navigate("/");
           } else if (userData.role === "admin") {
-            toast.success("Admin login successful!", { position: "top-center" });
+            toast.success("প্রশাসক লগইন সফল!", { position: "top-center" });
             navigate("/admin/home");
           } else {
-            toast.warn("Unknown role. Contact support.", { position: "top-center" });
+            toast.warn("অজানা ভূমিকা। সহায়তার জন্য যোগাযোগ করুন।", { position: "top-center" });
           }
         } else {
-          toast.error("User data not found in Firestore.", { position: "bottom-center" });
+          toast.error("ব্যবহারকারীর তথ্য Firestore এ পাওয়া যায়নি।", { position: "bottom-center" });
         }
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error("লগইনের সময় ত্রুটি:", error);
       if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
-        toast.error("Invalid email or password", { position: "bottom-center" });
+        toast.error("অবৈধ ইমেইল বা পাসওয়ার্ড", { position: "bottom-center" });
       } else {
-        toast.error(error.message || "Login failed. Try again.", { position: "bottom-center" });
+        toast.error(error.message || "লগইন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।", { position: "bottom-center" });
       }
     } finally {
       setLoading(false);
@@ -53,49 +53,48 @@ function Login() {
         <section className="hidden md:block text-white space-y-6 px-8">
           <div className="space-y-4">
             <h2 className="text-5xl font-bold leading-tight">
-              Welcome Back!
+              আবার স্বাগতম!
             </h2>
             <div className="w-20 h-1 bg-white rounded-full"></div>
           </div>
           <p className="text-lg text-white/90 leading-relaxed">
-            Log in to access your personalized dashboard, track your activity, and stay connected
-            with our community.
+            আপনার ব্যক্তিগতকৃত ড্যাশবোর্ড অ্যাক্সেস করতে, আপনার কার্যকলাপ ট্র্যাক করতে এবং আমাদের সম্প্রদায়ের সাথে সংযুক্ত থাকতে লগ ইন করুন।
           </p>
           <div className="space-y-3 pt-4">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <span className="text-white text-sm">✓</span>
               </div>
-              <span className="text-white/90">Access your personalized dashboard</span>
+              <span className="text-white/90">আপনার ব্যক্তিগতকৃত ড্যাশবোর্ড অ্যাক্সেস করুন</span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <span className="text-white text-sm">✓</span>
               </div>
-              <span className="text-white/90">Track your activity and progress</span>
+              <span className="text-white/90">আপনার কার্যকলাপ এবং অগ্রগতি ট্র্যাক করুন</span>
             </div>
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                 <span className="text-white text-sm">✓</span>
               </div>
-              <span className="text-white/90">Stay connected with the community</span>
+              <span className="text-white/90">সম্প্রদায়ের সাথে সংযুক্ত থাকুন</span>
             </div>
           </div>
         </section>
         <div className="bg-white/95 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-10">
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-gray-800 mb-2">Login</h3>
-              <p className="text-gray-500">Sign in to your account</p>
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">লগ ইন করুন</h3>
+              <p className="text-gray-500">আপনার অ্যাকাউন্টে সাইন ইন করুন</p>
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Email Address
+                ইমেইল ঠিকানা
               </label>
               <input
                 type="email"
-                placeholder="email@example.com"
+                placeholder="example@gmail.com"
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200"
@@ -104,11 +103,11 @@ function Login() {
 
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700">
-                Password
+                পাসওয়ার্ড
               </label>
               <input
                 type="password"
-                placeholder="Enter your password"
+                placeholder="আপনার পাসওয়ার্ড প্রবেश করুন"
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200"
@@ -126,17 +125,17 @@ function Login() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  Logging in...
+                  লগ ইন করা হচ্ছে...
                 </span>
               ) : (
-                "Log In"
+                "লগ ইন করুন"
               )}
             </button>
 
             <p className="text-center text-gray-600 text-sm">
-              Don't have an account?{" "}
+              অ্যাকাউন্ট নেই?{" "}
               <a href="/signup" className="text-emerald-600 font-semibold hover:text-emerald-700 transition duration-200">
-                Sign Up
+                নিবন্ধন করুন
               </a>
             </p>
           </form>
