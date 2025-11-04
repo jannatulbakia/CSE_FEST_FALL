@@ -6,6 +6,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isManagementOpen, setIsManagementOpen] = useState(false);
   const [isHealthOpen, setIsHealthOpen] = useState(false);
+  const [isMobileHealthOpen, setIsMobileHealthOpen] = useState(false);
+  const [isMobileManagementOpen, setIsMobileManagementOpen] = useState(false);
   const location = useLocation();
   const managementRef = useRef(null);
   const healthRef = useRef(null);
@@ -28,14 +30,17 @@ const Navbar = () => {
     { to: '/health-tracker', label: 'স্বাস্থ্য ট্র্যাকার' },
     { to: '/health-tips', label: 'স্বাস্থ্য টিপস' }
   ];
-  
 
+  // Close dropdowns on route change
   useEffect(() => {
     setIsOpen(false);
     setIsManagementOpen(false);
     setIsHealthOpen(false);
+    setIsMobileHealthOpen(false);
+    setIsMobileManagementOpen(false);
   }, [location.pathname]);
 
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (managementRef.current && !managementRef.current.contains(event.target)) {
@@ -49,16 +54,16 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
   }, [isOpen]);
+
+  const handleMobileMenuClose = () => {
+    setIsOpen(false);
+    setIsMobileHealthOpen(false);
+    setIsMobileManagementOpen(false);
+  };
 
   return (
     <>
@@ -67,11 +72,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-              <img 
-                src={logo} 
-                alt="স্বাস্থ্যবন্ধু লোগো" 
-                className="h-10 w-10 rounded-full shadow-sm border-2 border-green-400" 
-              />
+              <img src={logo} alt="স্বাস্থ্যবন্ধু লোগো" className="h-10 w-10 rounded-full shadow-sm border-2 border-green-400" />
               <span className="text-xl sm:text-2xl font-bold text-white">স্বাস্থ্যবন্ধু</span>
             </Link>
 
@@ -90,7 +91,7 @@ const Navbar = () => {
                   {link.label}
                 </Link>
               ))}
-              
+
               {/* Health Dropdown */}
               <div className="relative" ref={healthRef}>
                 <button
@@ -102,16 +103,10 @@ const Navbar = () => {
                   }`}
                 >
                   স্বাস্থ্য
-                  <svg 
-                    className={`w-4 h-4 transition-transform ${isHealthOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className={`w-4 h-4 transition-transform ${isHealthOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
                 {isHealthOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-green-950 rounded-lg shadow-xl border border-green-800 overflow-hidden">
                     {healthLinks.map((link) => (
@@ -143,16 +138,10 @@ const Navbar = () => {
                   }`}
                 >
                   ম্যানেজমেন্ট
-                  <svg 
-                    className={`w-4 h-4 transition-transform ${isManagementOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className={`w-4 h-4 transition-transform ${isManagementOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
                 {isManagementOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-green-950 rounded-lg shadow-xl border border-green-800 overflow-hidden">
                     {managementLinks.map((link) => (
@@ -203,27 +192,15 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Menu Sidebar */}
-      <div
-        className={`lg:hidden fixed top-0 right-0 h-full w-64 sm:w-80 bg-green-950 shadow-2xl transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        } z-50 overflow-y-auto`}
-      >
+      <div className={`lg:hidden fixed top-0 right-0 h-full w-64 sm:w-80 bg-green-950 shadow-2xl transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'} z-50 overflow-y-auto`}>
         <div className="flex flex-col h-full">
           {/* Mobile Header */}
           <div className="flex justify-between items-center p-6 border-b border-green-800">
             <div className="flex items-center gap-2">
-              <img 
-                src={logo} 
-                alt="লোগো" 
-                className="h-8 w-8 rounded-full border-2 border-green-400" 
-              />
+              <img src={logo} alt="লোগো" className="h-8 w-8 rounded-full border-2 border-green-400" />
               <span className="text-xl font-bold text-green-400">স্বাস্থ্যবন্ধু</span>
             </div>
-            <button 
-              onClick={() => setIsOpen(false)} 
-              className="p-2 rounded-lg hover:bg-green-800 transition duration-200"
-              aria-label="বন্ধ করুন"
-            >
+            <button onClick={handleMobileMenuClose} className="p-2 rounded-lg hover:bg-green-800 transition duration-200" aria-label="বন্ধ করুন">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -236,50 +213,32 @@ const Navbar = () => {
               <Link
                 key={link.to}
                 to={link.to}
-                onClick={() => setIsOpen(false)}
-                className={`px-4 py-3 rounded-lg font-medium transition duration-200 ${
-                  location.pathname === link.to
-                    ? 'text-green-300 font-bold bg-green-900 border-l-4 border-green-400'
-                    : 'text-white hover:text-green-300 hover:bg-green-900'
-                }`}
+                onClick={handleMobileMenuClose}
+                className={`px-4 py-3 rounded-lg font-medium transition duration-200 ${location.pathname === link.to ? 'text-green-300 font-bold bg-green-900 border-l-4 border-green-400' : 'text-white hover:text-green-300 hover:bg-green-900'}`}
               >
                 {link.label}
               </Link>
             ))}
-            
+
             {/* Mobile Health Section */}
             <div>
               <button
-                onClick={() => setIsHealthOpen(!isHealthOpen)}
-                className={`w-full px-4 py-3 rounded-lg font-medium transition duration-200 flex items-center justify-between ${
-                  healthLinks.some(link => location.pathname === link.to)
-                    ? 'text-green-300 bg-green-900'
-                    : 'text-white hover:text-green-300 hover:bg-green-900'
-                }`}
+                onClick={() => setIsMobileHealthOpen(!isMobileHealthOpen)}
+                className={`w-full px-4 py-3 rounded-lg font-medium transition duration-200 flex items-center justify-between ${healthLinks.some(link => location.pathname === link.to) ? 'text-green-300 bg-green-900' : 'text-white hover:text-green-300 hover:bg-green-900'}`}
               >
                 স্বাস্থ্য
-                <svg 
-                  className={`w-4 h-4 transition-transform ${isHealthOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
+                <svg className={`w-4 h-4 transition-transform ${isMobileHealthOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              
-              {isHealthOpen && (
+              {isMobileHealthOpen && (
                 <div className="mt-2 ml-4 space-y-2">
                   {healthLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-2 rounded-lg transition duration-200 ${
-                        location.pathname === link.to
-                          ? 'text-green-300 bg-green-900'
-                          : 'text-white hover:text-green-300 hover:bg-green-900'
-                      }`}
+                    <Link 
+                      key={link.to} 
+                      to={link.to} 
+                      onClick={handleMobileMenuClose} 
+                      className={`block px-4 py-2 rounded-lg transition duration-200 ${location.pathname === link.to ? 'text-green-300 bg-green-900 font-bold border-l-4 border-green-400' : 'text-white hover:text-green-300 hover:bg-green-900'}`}
                     >
                       {link.label}
                     </Link>
@@ -291,36 +250,22 @@ const Navbar = () => {
             {/* Mobile Management Section */}
             <div>
               <button
-                onClick={() => setIsManagementOpen(!isManagementOpen)}
-                className={`w-full px-4 py-3 rounded-lg font-medium transition duration-200 flex items-center justify-between ${
-                  managementLinks.some(link => location.pathname === link.to)
-                    ? 'text-green-300 bg-green-900'
-                    : 'text-white hover:text-green-300 hover:bg-green-900'
-                }`}
+                onClick={() => setIsMobileManagementOpen(!isMobileManagementOpen)}
+                className={`w-full px-4 py-3 rounded-lg font-medium transition duration-200 flex items-center justify-between ${managementLinks.some(link => location.pathname === link.to) ? 'text-green-300 bg-green-900' : 'text-white hover:text-green-300 hover:bg-green-900'}`}
               >
                 ম্যানেজমেন্ট
-                <svg 
-                  className={`w-4 h-4 transition-transform ${isManagementOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
+                <svg className={`w-4 h-4 transition-transform ${isMobileManagementOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              
-              {isManagementOpen && (
+              {isMobileManagementOpen && (
                 <div className="mt-2 ml-4 space-y-2">
                   {managementLinks.map((link) => (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-2 rounded-lg transition duration-200 ${
-                        location.pathname === link.to
-                          ? 'text-green-300 bg-green-900'
-                          : 'text-white hover:text-green-300 hover:bg-green-900'
-                      }`}
+                    <Link 
+                      key={link.to} 
+                      to={link.to} 
+                      onClick={handleMobileMenuClose} 
+                      className={`block px-4 py-2 rounded-lg transition duration-200 ${location.pathname === link.to ? 'text-green-300 bg-green-900 font-bold border-l-4 border-green-400' : 'text-white hover:text-green-300 hover:bg-green-900'}`}
                     >
                       {link.label}
                     </Link>
@@ -332,11 +277,7 @@ const Navbar = () => {
 
           {/* Mobile CTA Button */}
           <div className="p-4 border-t border-green-800">
-            <Link
-              to="/signup"
-              onClick={() => setIsOpen(false)}
-              className="block w-full px-4 py-3 bg-green-400 text-green-900 font-semibold rounded-lg hover:bg-green-500 hover:text-white text-center transition duration-200"
-            >
+            <Link to="/signup" onClick={handleMobileMenuClose} className="block w-full px-4 py-3 bg-green-400 text-green-900 font-semibold rounded-lg hover:bg-green-500 hover:text-white text-center transition duration-200">
               শুরু করুন
             </Link>
           </div>
