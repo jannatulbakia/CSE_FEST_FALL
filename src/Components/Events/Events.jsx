@@ -1,4 +1,3 @@
-// src/Events.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EventCard from '../EventCard/EventCard';
@@ -21,7 +20,6 @@ const Events = () => {
                 console.error('Error fetching events:', error);
             }
         };
-
         fetchData();
     }, []);
 
@@ -39,22 +37,34 @@ const Events = () => {
     }, [selectedUpazila, events]);
 
     return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold text-center">Events</h1>
-            <div className="flex justify-center mb-4">
-                <select 
-                    className="border rounded p-2" 
-                    onChange={(e) => setSelectedUpazila(e.target.value)} 
-                    value={selectedUpazila}>
+        <div className="p-6 bg-gradient-to-b from-green-50 to-emerald-50 min-h-screen">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-center text-green-900 mb-6">
+                🔹 Events
+            </h1>
+
+            {/* Filter UI */}
+            <div className="flex justify-center mb-6">
+                <select
+                    className="border-2 border-green-400 rounded-lg p-2 px-4 text-green-900 font-medium shadow-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                    onChange={(e) => setSelectedUpazila(e.target.value)}
+                    value={selectedUpazila}
+                >
                     <option value="">All Upazilas</option>
                     {upazilas.map((upazila, index) => (
                         <option key={index} value={upazila}>{upazila}</option>
                     ))}
                 </select>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+            {/* Events Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {filteredEvents.map(event => (
-                    <EventCard key={event.id} event={event} />
+                    <div
+                        key={event.id}
+                        className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                    >
+                        <EventCard event={event} />
+                    </div>
                 ))}
             </div>
         </div>
