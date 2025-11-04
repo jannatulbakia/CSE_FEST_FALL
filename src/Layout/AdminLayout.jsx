@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import { FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 
 const UserLayout = () => {
@@ -10,6 +10,21 @@ const UserLayout = () => {
     localStorage.removeItem("userToken");
     navigate("/login");
   };
+
+  // Tailwind active and default classes
+  const getNavLinkClass = ({ isActive }) =>
+    `flex items-center px-4 py-3 rounded-xl transition duration-200 font-medium ${
+      isActive
+        ? "bg-white/30 text-white"
+        : "text-white/90 hover:bg-white/10 hover:text-white"
+    }`;
+
+  const getMobileNavLinkClass = ({ isActive }) =>
+    `inline-flex items-center px-4 py-2 rounded-lg transition duration-200 font-medium ${
+      isActive
+        ? "bg-emerald-200 text-emerald-900"
+        : "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+    }`;
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-emerald-50 to-teal-50 overflow-hidden">
@@ -22,9 +37,11 @@ const UserLayout = () => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-emerald-600 to-green-600 text-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0 flex flex-col`}>
+      <aside
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-emerald-600 to-green-600 text-white shadow-2xl transform transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 flex flex-col`}
+      >
         <div className="flex flex-col h-full">
           {/* Mobile Close Button */}
           <button
@@ -36,7 +53,9 @@ const UserLayout = () => {
 
           {/* Sidebar Header */}
           <div className="pt-16 lg:pt-24 px-8 pb-8">
-            <h1 className="text-3xl font-bold tracking-wide">User Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-wide">
+              ব্যবহারকারী ড্যাশবোর্ড
+            </h1>
             <div className="w-16 h-1 bg-white/50 mt-3 rounded-full"></div>
           </div>
 
@@ -44,43 +63,28 @@ const UserLayout = () => {
           <nav className="flex-1 px-6">
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/admin"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
-                >
+                <NavLink to="/admin" onClick={() => setSidebarOpen(false)} className={getNavLinkClass}>
                   <span className="mr-3">🏠</span>
-                  Home
-                </Link>
+                  হোম
+                </NavLink>
               </li>
               <li>
-                <Link
-                  to="/admin/manage-volunteer"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
-                >
+                <NavLink to="/admin/manage-volunteer" onClick={() => setSidebarOpen(false)} className={getNavLinkClass}>
                   <span className="mr-3">🤝</span>
-                  Volunteer Management
-                </Link>
+                  স্বেচ্ছাসেবক ব্যবস্থাপনা
+                </NavLink>
               </li>
               <li>
-                <Link
-                to="/admin/manage-event"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
-              >
-                <span className="mr-2">🍎</span>
-                Event Manager
-              </Link>
+                <NavLink to="/admin/manage-event" onClick={() => setSidebarOpen(false)} className={getNavLinkClass}>
+                  <span className="mr-2">🍎</span>
+                  ইভেন্ট ব্যবস্থাপক
+                </NavLink>
               </li>
               <li>
-                <Link
-                  to="/admin/monitor-activity"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
-                >
+                <NavLink to="/admin/monitor-activity" onClick={() => setSidebarOpen(false)} className={getNavLinkClass}>
                   <span className="mr-3">📊</span>
-                  Activity
-                </Link>
+                  কার্যক্রম
+                </NavLink>
               </li>
             </ul>
           </nav>
@@ -92,7 +96,7 @@ const UserLayout = () => {
               className="w-full flex items-center justify-center px-4 py-3 bg-white/20 hover:bg-white/30 rounded-xl transition duration-200 font-medium backdrop-blur-sm"
             >
               <FaSignOutAlt className="mr-2" />
-              Logout
+              লগআউট
             </button>
           </div>
         </div>
@@ -112,14 +116,15 @@ const UserLayout = () => {
             </button>
 
             <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
-              Shastho Bondhu Oragnizer Area
+              স্বাস্থ্য বন্ধু অর্গানাইজার এরিয়া
             </h2>
+
             <button
               onClick={handleLogout}
               className="flex items-center px-3 sm:px-4 py-2 bg-gradient-to-r from-emerald-500 to-green-500 text-white rounded-xl hover:shadow-lg hover:scale-105 transform transition duration-200 font-medium text-sm sm:text-base"
             >
               <FaSignOutAlt className="mr-0 sm:mr-2" />
-              <span className="hidden sm:inline">Logout</span>
+              <span className="hidden sm:inline">লগআউট</span>
             </button>
           </div>
         </header>
@@ -128,41 +133,28 @@ const UserLayout = () => {
         <nav className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 overflow-x-auto">
           <ul className="flex space-x-4 whitespace-nowrap">
             <li>
-              <Link
-                to="/admin"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
-              >
+              <NavLink to="/admin" className={getMobileNavLinkClass}>
                 <span className="mr-2">🏠</span>
-                Home
-              </Link>
+                হোম
+              </NavLink>
             </li>
             <li>
-              <Link
-                  to="/admin/manage-volunteer"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
-                >
-                  <span className="mr-3">🤝</span>
-                  Volunteer Management
-                </Link>
+              <NavLink to="/admin/manage-volunteer" className={getMobileNavLinkClass}>
+                <span className="mr-3">🤝</span>
+                স্বেচ্ছাসেবক ব্যবস্থাপনা
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/admin/manage-event"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
-              >
+              <NavLink to="/admin/manage-event" className={getMobileNavLinkClass}>
                 <span className="mr-2">🍎</span>
-                Event Manager
-              </Link>
+                ইভেন্ট ব্যবস্থাপক
+              </NavLink>
             </li>
             <li>
-              <Link
-                to="/admin/monitor-activity"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
-              >
+              <NavLink to="/admin/monitor-activity" className={getMobileNavLinkClass}>
                 <span className="mr-2">📊</span>
-                Activity
-              </Link>
+                কার্যক্রম
+              </NavLink>
             </li>
           </ul>
         </nav>
