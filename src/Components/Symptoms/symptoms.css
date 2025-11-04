@@ -1,0 +1,147 @@
+/* Symptoms.css */
+
+/* Spinner Container */
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+/* Spinner Animation */
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f4f6;
+  border-top: 4px solid #10b981;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-text {
+  font-size: 1.125rem;
+  color: #6b7280;
+  font-weight: 500;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Card Entry Animation */
+.grid > div {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.grid > div:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.grid > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.grid > div:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.grid > div:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.grid > div:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.grid > div:nth-child(6) {
+  animation-delay: 0.6s;
+}
+
+.grid > div:nth-child(7) {
+  animation-delay: 0.7s;
+}
+
+.grid > div:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+.grid > div:nth-child(9) {
+  animation-delay: 0.9s;
+}
+
+/* Add more nth-child selectors if you have more cards */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover Effect Enhancement */
+.grid > div {
+  transition: all 0.3s ease;
+}
+
+.grid > div:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-left-width: 6px;
+}
+
+/* Smooth Background Gradient on Hover */
+.grid > div {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid > div::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.grid > div:hover::before {
+  opacity: 1;
+}
+
+.grid > div > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .grid > div {
+    animation-delay: 0.1s !important;
+  }
+}

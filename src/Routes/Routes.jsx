@@ -17,9 +17,10 @@ import Volunteers from "../Components/Volunteers/Volunteers";
 import VolunteerManage from "../Components/Admin/VolunteerManage/VolunteerManage";
 import Activity from "../Components/Admin/Activity/Activity";
 import AdminHome from "../Components/Admin/AdminHome/AdminHome";
+
 import NGODetails from "../Components/Admin/AdminHome/NGODetails";
 
-
+import HealthTracker from "../Components/HealthTracker/HealthTracker";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         path: "/mental-health-checkin",
         element: <HealthCheckIn />,
+      },
+      {
+        path: "/health-tracker",
+        element: <HealthTracker />,
       },
       {
         path: "/community-map",

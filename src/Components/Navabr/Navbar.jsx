@@ -5,15 +5,16 @@ import logo from "../../assets/logo_village.jpg";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isManagementOpen, setIsManagementOpen] = useState(false);
+  const [isHealthOpen, setIsHealthOpen] = useState(false);
   const location = useLocation();
   const managementRef = useRef(null);
+  const healthRef = useRef(null);
 
   const navLinks = [
     { to: '/', label: 'হোম' },
     { to: '/mental-health-checkin', label: 'স্বাস্থ্য পরীক্ষা' },
     { to: '/anonymous-help', label: 'হেল্পলাইন' },
     { to: '/community-map', label: 'স্থান খুঁজুন' },
-    { to: '/health-tips', label: 'স্বাস্থ্য টিপস' },
     { to: '/symptoms', label: 'স্বাস্থ্য সচেতনতা' },
     { to: '/about', label: 'আপনার কণ্ঠ' }
   ];
@@ -23,15 +24,25 @@ const Navbar = () => {
     { to: '/event', label: 'ইভেন্ট' }
   ];
 
+  const healthLinks = [
+    { to: '/health-tracker', label: 'স্বাস্থ্য ট্র্যাকার' },
+    { to: '/health-tips', label: 'স্বাস্থ্য টিপস' }
+  ];
+  
+
   useEffect(() => {
     setIsOpen(false);
     setIsManagementOpen(false);
+    setIsHealthOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (managementRef.current && !managementRef.current.contains(event.target)) {
         setIsManagementOpen(false);
+      }
+      if (healthRef.current && !healthRef.current.contains(event.target)) {
+        setIsHealthOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -80,6 +91,47 @@ const Navbar = () => {
                 </Link>
               ))}
               
+              {/* Health Dropdown */}
+              <div className="relative" ref={healthRef}>
+                <button
+                  onClick={() => setIsHealthOpen(!isHealthOpen)}
+                  className={`px-3 py-2 rounded-lg font-medium transition duration-200 flex items-center gap-1 ${
+                    healthLinks.some(link => location.pathname === link.to)
+                      ? 'bg-green-800 text-green-300'
+                      : 'text-white hover:bg-green-800 hover:text-green-300'
+                  }`}
+                >
+                  স্বাস্থ্য
+                  <svg 
+                    className={`w-4 h-4 transition-transform ${isHealthOpen ? 'rotate-180' : ''}`} 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {isHealthOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-green-950 rounded-lg shadow-xl border border-green-800 overflow-hidden">
+                    {healthLinks.map((link) => (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        className={`block px-4 py-3 transition duration-200 ${
+                          location.pathname === link.to
+                            ? 'bg-green-800 text-green-300'
+                            : 'text-white hover:bg-green-800 hover:text-green-300'
+                        }`}
+                        onClick={() => setIsHealthOpen(false)}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {/* Management Dropdown */}
               <div className="relative" ref={managementRef}>
                 <button
@@ -195,6 +247,47 @@ const Navbar = () => {
               </Link>
             ))}
             
+            {/* Mobile Health Section */}
+            <div>
+              <button
+                onClick={() => setIsHealthOpen(!isHealthOpen)}
+                className={`w-full px-4 py-3 rounded-lg font-medium transition duration-200 flex items-center justify-between ${
+                  healthLinks.some(link => location.pathname === link.to)
+                    ? 'text-green-300 bg-green-900'
+                    : 'text-white hover:text-green-300 hover:bg-green-900'
+                }`}
+              >
+                স্বাস্থ্য
+                <svg 
+                  className={`w-4 h-4 transition-transform ${isHealthOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              {isHealthOpen && (
+                <div className="mt-2 ml-4 space-y-2">
+                  {healthLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-2 rounded-lg transition duration-200 ${
+                        location.pathname === link.to
+                          ? 'text-green-300 bg-green-900'
+                          : 'text-white hover:text-green-300 hover:bg-green-900'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Mobile Management Section */}
             <div>
               <button
