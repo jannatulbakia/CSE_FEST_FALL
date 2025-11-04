@@ -11,7 +11,7 @@ const Events = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/event');
+                const response = await axios.get('https://cse-fest-backend-rho.vercel.app/api/event');
                 setEvents(response.data.data);
                 setFilteredEvents(response.data.data);
                 const upazilasSet = new Set(response.data.data.map(event => event.location.upazila));

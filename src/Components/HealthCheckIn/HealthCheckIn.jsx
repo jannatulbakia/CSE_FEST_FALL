@@ -9,7 +9,7 @@ const HealthCheckIn = () => {
     const [date, setDate] = useState(new Date());
     const [editingId, setEditingId] = useState(null);
 
-    const BACKEND_URL = "http://localhost:5000/api"; // Replace with your backend URL
+    const BACKEND_URL = "https://cse-fest-backend-rho.vercel.app/api"; // Replace with your backend URL
 
     useEffect(() => {
         const fetchEntries = async () => {

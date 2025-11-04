@@ -32,7 +32,7 @@ const CommunityMap = () => {
     const fetchFacilities = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:5000/api/facilities");
+        const res = await axios.get("https://cse-fest-backend-rho.vercel.app/api/facilities");
         if (Array.isArray(res.data)) {
           setFacilities(res.data);
           localStorage.setItem("facilities_cache", JSON.stringify(res.data));

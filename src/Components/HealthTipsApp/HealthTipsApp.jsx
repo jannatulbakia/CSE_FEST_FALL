@@ -18,7 +18,7 @@ const HealthTipsApp = () => {
   const [expandedTip, setExpandedTip] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE_URL = "http://localhost:5000/api/health-tips";
+  const API_BASE_URL = "https://cse-fest-backend-rho.vercel.app/api/health-tips";
 
   useEffect(() => {
     const fetchData = async () => {

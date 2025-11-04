@@ -15,7 +15,7 @@ const AnonymousHelp = () => {
   const [statusMessage, setStatusMessage] = useState("");
   const [lastSentId, setLastSentId] = useState(null);
 
-  const BACKEND_URL = "http://localhost:5000";
+  const BACKEND_URL = "https://cse-fest-backend-rho.vercel.app";
 
   // Fetch anonymous name
   useEffect(() => {

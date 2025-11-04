@@ -6,7 +6,7 @@ export default function Symptom() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/symptoms")
+    fetch("https://cse-fest-backend-rho.vercel.app/api/symptoms")
       .then((res) => res.json())
       .then((data) => {
         setSymptoms(data);

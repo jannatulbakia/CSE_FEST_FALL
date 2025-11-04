@@ -9,7 +9,7 @@ const Volunteers = () => {
     useEffect(() => {
         const fetchVolunteers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/volunteers');
+                const response = await fetch('https://cse-fest-backend-rho.vercel.app/api/volunteers');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 setVolunteers(data.data);
