@@ -15,7 +15,7 @@ const VolunteerManage = () => {
 
     const fetchVolunteers = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/volunteers');
+            const response = await axios.get('https://cse-fest-backend-rho.vercel.app/api/volunteers');
             setVolunteers(response.data.data);
         } catch (error) {
             console.error('Error fetching volunteers:', error);
@@ -31,7 +31,7 @@ const VolunteerManage = () => {
         if (editing) {
             // Update existing volunteer
             try {
-                await axios.put(`http://localhost:5000/api/volunteers/${currentVolunteer._id}`, form);
+                await axios.put(`https://cse-fest-backend-rho.vercel.app/api/volunteers/${currentVolunteer._id}`, form);
                 Swal.fire('Success', 'Volunteer updated!', 'success');
             } catch (error) {
                 console.error('Error updating volunteer:', error);
@@ -39,7 +39,7 @@ const VolunteerManage = () => {
         } else {
             // Create new volunteer
             try {
-                await axios.post('http://localhost:5000/api/volunteers', form);
+                await axios.post('https://cse-fest-backend-rho.vercel.app/api/volunteers', form);
                 Swal.fire('Success', 'Volunteer added!', 'success');
             } catch (error) {
                 console.error('Error adding volunteer:', error);
@@ -57,7 +57,7 @@ const VolunteerManage = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/volunteers/${id}`);
+            await axios.delete(`https://cse-fest-backend-rho.vercel.app/api/volunteers/${id}`);
             Swal.fire('Deleted!', 'Volunteer has been deleted.', 'success');
             fetchVolunteers();
         } catch (error) {

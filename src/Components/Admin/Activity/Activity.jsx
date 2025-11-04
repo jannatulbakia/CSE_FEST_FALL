@@ -7,7 +7,7 @@ const Activity = () => {
     useEffect(() => {
         const fetchEntries = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/mood-entries");
+                const response = await axios.get("https://cse-fest-backend-rho.vercel.app/api/mood-entries");
                 if (response.data.success) {
                     setEntries(response.data.entries);
                 } else {

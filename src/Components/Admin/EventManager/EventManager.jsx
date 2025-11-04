@@ -35,7 +35,7 @@ const EventManager = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/event');
+            const response = await axios.get('https://cse-fest-backend-rho.vercel.app/api/event');
             setEvents(response.data.data);
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -58,10 +58,10 @@ const EventManager = () => {
         e.preventDefault();
         try {
             if (editMode) {
-                await axios.put(`http://localhost:5000/api/event/${currentId}`, eventData);
+                await axios.put(`https://cse-fest-backend-rho.vercel.app/api/event/${currentId}`, eventData);
                 Swal.fire('Updated!', 'Event has been updated.', 'success');
             } else {
-                await axios.post('http://localhost:5000/api/event', eventData);
+                await axios.post('https://cse-fest-backend-rho.vercel.app/api/event', eventData);
                 Swal.fire('Created!', 'Event has been created.', 'success');
             }
             resetForm();
@@ -80,7 +80,7 @@ const EventManager = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/event/${id}`);
+            await axios.delete(`https://cse-fest-backend-rho.vercel.app/api/event/${id}`);
             Swal.fire('Deleted!', 'Event has been deleted.', 'success');
             fetchEvents();
         } catch (error) {
