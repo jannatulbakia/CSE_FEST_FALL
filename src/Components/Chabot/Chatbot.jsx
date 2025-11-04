@@ -1,23 +1,25 @@
+// Chatbot.jsx
 import React, { useState, useEffect } from "react";
-import { MessageCircle, X } from "lucide-react";
-import "./Chatbot.css"; // Tailwind বা custom css
+import { MessageCircle, X, RefreshCw } from "lucide-react";
+import "./Chatbot.css"; // Tailwind or custom CSS
 
 const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  // Chat history store (last 10 messages)
+  // Load last 10 messages from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("chat_history");
     if (saved) setMessages(JSON.parse(saved));
   }, []);
 
+  // Store last 10 messages in localStorage
   useEffect(() => {
     if (messages.length > 0) {
       localStorage.setItem(
         "chat_history",
-        JSON.stringify(messages.slice(-10)) // last 10 messages
+        JSON.stringify(messages.slice(-10))
       );
     }
   }, [messages]);
@@ -38,7 +40,6 @@ const Chatbot = () => {
       const data = await response.json();
       setMessages((prev) => [...prev, { text: data.content, sender: "bot" }]);
     } catch {
-      // catch variable ব্যবহার করা হয়নি, redline gone
       setMessages((prev) => [
         ...prev,
         {
@@ -47,6 +48,11 @@ const Chatbot = () => {
         },
       ]);
     }
+  };
+
+  const handleRefresh = () => {
+    setMessages([]);
+    localStorage.removeItem("chat_history");
   };
 
   return (
@@ -76,12 +82,23 @@ const Chatbot = () => {
               🤖 আপনার বন্ধু
               <span className="text-sm opacity-90">(আপনার মানসিক সহায়ক)</span>
             </h2>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="hover:text-gray-200 transition"
-            >
-              <X size={22} />
-            </button>
+            <div className="flex gap-2">
+              {/* Refresh button */}
+              <button
+                onClick={handleRefresh}
+                className="hover:text-gray-200 transition text-white px-2 py-1 border border-white rounded"
+                title="চ্যাট রিফ্রেশ করুন"
+              >
+                <RefreshCw size={18} />
+              </button>
+              {/* Close button */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="hover:text-gray-200 transition"
+              >
+                <X size={22} />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
