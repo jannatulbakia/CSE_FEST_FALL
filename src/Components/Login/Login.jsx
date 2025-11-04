@@ -27,7 +27,7 @@ function Login() {
             navigate("/");
           } else if (userData.role === "admin") {
             toast.success("প্রশাসক লগইন সফল!", { position: "top-center" });
-            navigate("/admin/home");
+            navigate("/admin");
           } else {
             toast.warn("অজানা ভূমিকা। সহায়তার জন্য যোগাযোগ করুন।", { position: "top-center" });
           }
