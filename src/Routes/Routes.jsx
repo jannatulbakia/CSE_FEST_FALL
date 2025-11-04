@@ -14,6 +14,9 @@ import Events from "../Components/Events/Events";
 import EventDetails from "../Components/Events/EventDetails";
 import EventManager from "../Components/Admin/EventManager/EventManager";
 import Volunteers from "../Components/Volunteers/Volunteers";
+import VolunteerManage from "../Components/Admin/VolunteerManage/VolunteerManage";
+import Activity from "../Components/Admin/Activity/Activity";
+import AdminHome from "../Components/Admin/AdminHome/AdminHome";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +79,18 @@ export const router = createBrowserRouter([
           {
             path: "/admin/manage-event",
             element: <EventManager />,
+          },
+          {
+            path: "/admin/manage-volunteer",
+            element: <VolunteerManage/>,
+          },
+          {
+            path:"/admin/monitor-activity",
+            element:<Activity/>,
+          },
+          {
+            path:"admin/home",
+            element:<AdminHome/>,
           },
 
         ]

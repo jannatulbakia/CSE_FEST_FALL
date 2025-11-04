@@ -9,42 +9,64 @@ const HealthCheckIn = () => {
     const [date, setDate] = useState(new Date());
     const [editingId, setEditingId] = useState(null);
 
+    const BACKEND_URL = "http://localhost:5000/api"; // Replace with your backend URL
+
     useEffect(() => {
-        const savedEntries = JSON.parse(localStorage.getItem('moodEntries')) || [];
-        setEntries(savedEntries);
+        const fetchEntries = async () => {
+            try {
+                const response = await fetch(`${BACKEND_URL}/mood-entries`);
+                const data = await response.json();
+                if (data.success) {
+                    setEntries(data.entries);
+                }
+            } catch (error) {
+                console.error("Error fetching entries:", error);
+            }
+        };
+
+        fetchEntries();
     }, []);
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!mood && !note) return;
 
-        let updated;
-        if (editingId) {
-            updated = entries.map((entry) =>
-                entry.id === editingId
-                    ? { ...entry, mood, note, date: date.toLocaleDateString() }
-                    : entry
-            );
-            setEditingId(null);
-        } else {
-            const newEntry = {
-                id: Date.now(),
-                date: date.toLocaleDateString(),
-                mood,
-                note,
-            };
-            updated = [newEntry, ...entries];
-        }
+        const entryData = {
+            mood,
+            note,
+            date: date.toISOString(),
+        };
 
-        setEntries(updated);
-        localStorage.setItem('moodEntries', JSON.stringify(updated));
-        setMood('');
-        setNote('');
+        try {
+            const response = await fetch(`${BACKEND_URL}/mood-entries`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(entryData),
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                // Add the new entry to the state
+                const newEntry = {
+                    id: data.entryId, // Use the ID returned from the backend
+                    date: date.toLocaleDateString(),
+                    mood,
+                    note,
+                };
+                setEntries([newEntry, ...entries]);
+                setMood('');
+                setNote('');
+            }
+        } catch (error) {
+            console.error("Error saving entry:", error);
+        }
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         const updated = entries.filter((entry) => entry.id !== id);
         setEntries(updated);
-        localStorage.setItem('moodEntries', JSON.stringify(updated));
+        // Optionally, call a delete API if you implement it
     };
 
     const handleEdit = (entry) => {

@@ -27,7 +27,7 @@ function Login() {
             navigate("/");
           } else if (userData.role === "admin") {
             toast.success("Admin login successful!", { position: "top-center" });
-            navigate("/admin");
+            navigate("/admin/home");
           } else {
             toast.warn("Unknown role. Contact support.", { position: "top-center" });
           }

@@ -4,6 +4,7 @@ import logo from "../../assets/logo_village.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isManagementOpen, setIsManagementOpen] = useState(false);
   const location = useLocation();
 
   const navLinks = [
@@ -16,17 +17,20 @@ const Navbar = () => {
     { to: '/about', label: 'আমাদের সম্পর্কে' }
   ];
 
+  const managementLinks = [
+    { to: '/voluenteer', label: 'স্বেচ্ছাসেবক' },
+    { to: '/event', label: 'ইভেন্ট' }
+  ];
+
   return (
     <nav className="bg-green-900 text-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Logo" className="h-10 w-10 rounded-full shadow-sm border border-green-400" />
             <span className="text-2xl font-bold text-white">স্বাস্থ্যবন্ধু</span>
           </Link>
 
-          {/* Desktop Links */}
           <div className="hidden lg:flex items-center space-x-4">
             {navLinks.map((link) => (
               <Link
@@ -41,6 +45,31 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="relative">
+              <button
+                onClick={() => setIsManagementOpen(!isManagementOpen)}
+                className={`px-4 py-2 rounded-lg font-medium transition duration-200 ${
+                  isManagementOpen ? 'text-green-400 font-bold border-b-2 border-green-400' : 'text-white hover:text-green-400'
+                }`}
+              >
+                ম্যানেজমেন্ট
+              </button>
+              {isManagementOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-green-950 rounded-lg shadow-lg">
+                  {managementLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className={`block px-4 py-2 text-white hover:bg-green-800`}
+                      onClick={() => setIsManagementOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               to="/signup"
               className="ml-4 px-6 py-2 bg-green-400 text-green-900 font-semibold rounded-lg hover:bg-green-500 hover:text-white transition duration-200"
@@ -48,8 +77,6 @@ const Navbar = () => {
               শুরু করুন
             </Link>
           </div>
-
-          {/* Mobile Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-green-800 transition duration-200"
@@ -66,8 +93,6 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
-      {/* Mobile Sidebar */}
       <div
         className={`lg:hidden fixed top-0 right-0 h-full w-64 bg-green-950 shadow-lg transform transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
@@ -98,6 +123,29 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            <div className="relative">
+              <button
+                onClick={() => setManagementOpen(!isManagementOpen)}
+                className="px-4 py-3 text-white hover:bg-green-800 rounded-lg"
+              >
+                ম্যানেজমেন্ট
+              </button>
+              {isManagementOpen && (
+                <div className="absolute left-0 mt-2 w-full bg-green-950 rounded-lg shadow-lg">
+                  {managementLinks.map((link) => (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-4 py-3 text-white hover:bg-green-800"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
             <Link
               to="/signup"
               onClick={() => setIsOpen(false)}

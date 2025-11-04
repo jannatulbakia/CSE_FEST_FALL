@@ -55,12 +55,12 @@ const UserLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/volunteer"
+                  to="/admin/manage-volunteer"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
                 >
                   <span className="mr-3">🤝</span>
-                  Volunteer Increase
+                  Volunteer Management
                 </Link>
               </li>
               <li>
@@ -74,7 +74,7 @@ const UserLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/activity"
+                  to="/admin/monitor-activity"
                   onClick={() => setSidebarOpen(false)}
                   className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
                 >
@@ -138,12 +138,13 @@ const UserLayout = () => {
             </li>
             <li>
               <Link
-                to="/volunteer"
-                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
-              >
-                <span className="mr-2">🤝</span>
-                Volunteer
-              </Link>
+                  to="/admin/manage-volunteer"
+                  onClick={() => setSidebarOpen(false)}
+                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
+                >
+                  <span className="mr-3">🤝</span>
+                  Volunteer Management
+                </Link>
             </li>
             <li>
               <Link
@@ -156,7 +157,7 @@ const UserLayout = () => {
             </li>
             <li>
               <Link
-                to="/activity"
+                to="/admin/monitor-activity"
                 className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
               >
                 <span className="mr-2">📊</span>
