@@ -65,13 +65,12 @@ const UserLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/food-info"
-                  onClick={() => setSidebarOpen(false)}
-                  className="flex items-center px-4 py-3 rounded-xl hover:bg-white/10 transition duration-200 text-white/90 hover:text-white font-medium"
-                >
-                  <span className="mr-3">🍎</span>
-                  Food Info
-                </Link>
+                to="/admin/manage-event"
+                className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
+              >
+                <span className="mr-2">🍎</span>
+                Event Manager
+              </Link>
               </li>
               <li>
                 <Link
@@ -113,7 +112,7 @@ const UserLayout = () => {
             </button>
 
             <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">
-              NutrifyLife
+              Shastho Bondhu Oragnizer Area
             </h2>
             <button
               onClick={handleLogout}
@@ -148,11 +147,11 @@ const UserLayout = () => {
             </li>
             <li>
               <Link
-                to="/food-info"
+                to="/admin/manage-event"
                 className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition duration-200 font-medium"
               >
                 <span className="mr-2">🍎</span>
-                Food Info
+                Event Manager
               </Link>
             </li>
             <li>

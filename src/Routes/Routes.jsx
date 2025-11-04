@@ -10,6 +10,10 @@ import CommunityMap from "../Components/CommunityMap/CommunityMap";
 import HealthTipsApp from "../Components/HealthTipsApp/HealthTipsApp";
 import Symptops from "../Components/Symptoms/Symptops";
 import AdminLayout from "../Layout/AdminLayout";
+import Events from "../Components/Events/Events";
+import EventDetails from "../Components/Events/EventDetails";
+import EventManager from "../Components/Admin/EventManager/EventManager";
+import Volunteers from "../Components/Volunteers/Volunteers";
 
 export const router = createBrowserRouter([
   {
@@ -26,24 +30,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "/anonymous-help",
-        element: <AnonymousHelp/>,
+        element: <AnonymousHelp />,
       },
       {
         path: "/mental-health-checkin",
-        element: <HealthCheckIn/>,
+        element: <HealthCheckIn />,
       },
       {
         path: "/community-map",
-        element: <CommunityMap/>,
+        element: <CommunityMap />,
       },
       {
         path: "/signup",
-        element: <Signup/>,
+        element: <Signup />,
 
       },
       {
         path: "/login",
-        element: <Login/>,
+        element: <Login />,
       },
       {
         path: "/health-tips",
@@ -54,8 +58,27 @@ export const router = createBrowserRouter([
         element: <Symptops></Symptops>
       },
       {
+        path: "/event",
+        element: <Events />,
+      },
+      {
+        path: "/voluenteer",
+        element: <Volunteers />,
+      },
+      {
+        path: "/event/:id",
+        element: <EventDetails />,
+      },
+      {
         path: "/admin",
-        element: <AdminLayout/>,
+        element: <AdminLayout />,
+        children: [
+          {
+            path: "/admin/manage-event",
+            element: <EventManager />,
+          },
+
+        ]
       },
     ],
   },
